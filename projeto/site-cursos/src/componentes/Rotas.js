@@ -6,8 +6,8 @@ import { HomeScreen } from '../paginas/Home';
 
 export const Rotas = props => (
     <Switch>
-        <Route path='/cursos' component={CursosScreen}/>
-        <Route path='/contato' component={ContatoScreen}/>
-        <Route path='*' component={HomeScreen}/>
+        {props && props.token && <Route path='/cursos' component={CursosScreen} />}
+        <Route path='/contato' component={ContatoScreen} />
+        <Route path='*' component={HomeScreen} />
     </Switch>
 )

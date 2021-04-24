@@ -1,11 +1,14 @@
 import React from 'react';
+import { Cabecalho } from '../componentes/Cabecalho';
+import { AgrupamentoCursos } from '../componentes/cursos/Agrupamento';
 
-export class CursosScreen extends React.Component{
+export class CursosScreen extends React.Component {
 
-    render(){
-        return(
+    render() {
+        return (
             <div className="container">
-                <h1>Páginas de Cursos</h1>
+                <Cabecalho titulo="Cursos" subtitulo="cadastro de cursos" />
+                <AgrupamentoCursos />
             </div>
         );
     }

@@ -9,13 +9,14 @@ const notRestrictedEndpoints = [
 ];
 
 module.exports = server => {
+
     const tratamentoJwt = (req, res, next) => {
         if (!req || !req.headers) {
             return res.status(400).send({ auth: false, message: 'Não foi possível validar token de acesso.' });
         }
-
-        if (notRestrictedEndpoints.find(item => item.url === req.url && item.method === req.method)) {
+        if (req.method === 'OPTIONS' || notRestrictedEndpoints.find(item => item.url === req.url && item.method === req.method)) {
             next();
+            return;
         } else {
             var token = req.headers['x-access-token'];
             if (!token) {
@@ -32,8 +33,6 @@ module.exports = server => {
             });
         }
     }
-
-    server.use(tratamentoJwt);
 
     server.post('/api/login', (req, res) => {
         if (req && req.body) {
@@ -53,4 +52,6 @@ module.exports = server => {
 
         res.status(400).send({ error: 'Parametros de entrada inválidos' });
     });
+
+    server.use(tratamentoJwt);
 }
